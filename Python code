@@ -1,0 +1,20 @@
+import serial
+import csv
+ser=serial.Serial("COM5",baudrate=9600)
+csv=open(r"C:\Users\hrith.000\Desktop\distance12.csv",'a')
+try:
+    while True:
+            value=ser.readline()
+            valueInstring=str(value,'UTF-8')
+            print(valueInstring)
+            valueInstring.strip(',')
+            csv.write(valueInstring)
+            csv.flush()
+except serial.serialutil.SerialException as e:
+    print("COMPORT error")
+    csv.write("COMPORT error")
+    csv.flush()
+except KeyboardInterrupt as e:
+    print("Program was stopped by keyboard interrupt")
+    csv.write("KeyboardInterrupt")
+    csv.flush()
